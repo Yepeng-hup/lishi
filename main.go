@@ -19,7 +19,7 @@ const(
 )
 
 func dingDing(content,token string) error {
-	dingDingToken := "https://oapi.dingtalk.com/robot/send?access_token="+token
+    dingDingToken := "https://oapi.dingtalk.com/robot/send?access_token="+token
     dataInfo := map[string]interface{} {
         "msgtype": "markdown",
         "markdown": map[string]string{
@@ -75,7 +75,7 @@ type (
 )
 
 type systemResources interface {
-	memSy() *memInfo
+    memSy() *memInfo
     diskSy(dataDir string) *diskInfo
     cpuSy() int
 }
