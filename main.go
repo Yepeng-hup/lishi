@@ -229,14 +229,14 @@ func main(){
 			}
 			er := dingDing(alarmInfo, token)
 			if er == nil {
-				log.Print("Disk detonate send dingding success!")
+				log.Print("mem detonate send dingding success!")
 			}else {
 				log.Print(er.Error())
 			}
 		}else {
 			err := dingDing(alarmInfo, *ddToken)
 			if err == nil {
-				log.Print("Disk detonate send dingding success!")
+				log.Print("mem detonate send dingding success!")
 			}else {
 				log.Print(err.Error())
 			}
@@ -280,14 +280,14 @@ func main(){
 			}
 			er := dingDing(alarmInfo, token)
 			if er == nil {
-				log.Print("Disk detonate send dingding success!")
+				log.Print("cpu detonate send dingding success!")
 			}else {
 				log.Print(er.Error())
 			}
 		}else {
 			err := dingDing(alarmInfo, *ddToken)
 			if err == nil {
-				log.Print("Disk detonate send dingding success!")
+				log.Print("cpu detonate send dingding success!")
 			}else {
 				log.Print(err.Error())
 			}
