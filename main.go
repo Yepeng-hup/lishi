@@ -242,7 +242,7 @@ func main(){
 			}
 		}
 	}else {
-		log.Printf("memFree: %.2G", s.memSy().MemFree)
+		log.Printf("memFree: %.2fG\n", s.memSy().MemFree)
 	}
 
 	if s.diskSy(d.DiskDir).DiskUsed > *diskHorizon{
