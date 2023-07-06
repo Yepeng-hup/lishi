@@ -247,7 +247,7 @@ func main(){
 
 	if s.diskSy(d.DiskDir).DiskUsed > *diskHorizon{
 		rel := 100 - s.diskSy(d.DiskDir).DiskUsed
-		alarmInfo := f1+a.t+f2+fmt.Sprintf("Available disks are less than `%s` : %v%s", d.DiskDir, 20, x)+"\n\n"+fmt.Sprintf("Available disks `%s`: %d%s, %.2fG",d.DiskDir, rel, x, s.diskSy(*diskDir).DiskFree)
+		alarmInfo := f1+a.t+f2+fmt.Sprintf("Available disks are less than `%s` : %v%s", d.DiskDir, 100-*diskHorizon, x)+"\n\n"+fmt.Sprintf("Available disks `%s`: %d%s, %.2fG",d.DiskDir, rel, x, s.diskSy(*diskDir).DiskFree)
 		if *ddToken == "" {
 			token, err := catFile(*ddTokenFile)
 			if err != nil {
@@ -272,7 +272,7 @@ func main(){
 	}
 
 	if s.cpuSy() < *cpu {
-		alarmInfo := f1+a.t+f2+fmt.Sprintf("Less CPU available: %v%s", 20, x)+"\n\n"+fmt.Sprintf("Available CPU: %v%s", s.cpuSy(), x)
+		alarmInfo := f1+a.t+f2+fmt.Sprintf("Less CPU available: %v%s", 100-*cpu, x)+"\n\n"+fmt.Sprintf("Available CPU: %v%s", s.cpuSy(), x)
 		if *ddToken == "" {
 			token, err := catFile(*ddTokenFile)
 			if err != nil {
