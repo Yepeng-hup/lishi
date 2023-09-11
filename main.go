@@ -24,6 +24,7 @@ func main(){
 	diskDir := flag.String("diskDataDir", "/", "Specify the storage directory to monitor. The default is / .")
 	diskHorizon := flag.Int("d", 80, "Specify how many utilization of the disk to send an alarm,The default is 80%.")
 	memHorizon := flag.Float64("m", 2.0, "Specify the number of gigabytes of available memory to send an alarm. The default is 2.0G.")
+	cleCacheNum := flag.Int("c", 3, "Specify the number[1,2,3] clear system cache. The default is 3 .")
 	cpu := flag.Int("cpu", 20, "Specify how much the CPU is lower than to send an alarm, 20% by default.")
 	ddToken := flag.String("token", "", "Specify the Token to send DingDing.")
 	ddTokenFile := flag.String("token_filePath", "", "File path with token written.")
@@ -66,6 +67,10 @@ func main(){
 			}else {
 				log.Print(err.Error())
 			}
+		}
+		err := cmd.CleCache(*cleCacheNum)
+		if err != nil {
+			log.Println(err.Error())
 		}
 	}else {
 		log.Printf("memFree: %.2fG\n", s.MemSy().MemFree)
