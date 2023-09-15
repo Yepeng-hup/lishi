@@ -129,7 +129,7 @@ func main(){
 
 
 	if s.ProcessCheckNum(*processName, *processNum).Response != true {
-		alarmInfo := f1+a.T+f2+fmt.Sprintf("GameServer or Gate process Exit.")
+		alarmInfo := f1+a.T+f2+fmt.Sprintf("have process Exit.")
 		if *ddToken == "" {
 			token, err := core.CatFile(*ddTokenFile)
 			if err != nil {
