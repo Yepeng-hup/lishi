@@ -9,7 +9,7 @@ import (
 var t = time.Now()
 
 func CmdLogs(logText string)bool{
-	file, err := os.OpenFile("cmd.log", os.O_RDWR|os.O_APPEND|os.O_CREATE, 0666)
+	file, err := os.OpenFile("/var/log/sysmons.log", os.O_RDWR|os.O_APPEND|os.O_CREATE, 0666)
 	if err != nil {
 		log.Println("open file error: ",err.Error())
 		return false

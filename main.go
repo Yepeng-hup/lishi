@@ -73,7 +73,7 @@ func main(){
 			log.Println(err.Error())
 		}
 	}else {
-		logs := fmt.Sprintf("memFree: %.2fG\n", s.MemSy().MemFree)
+		logs := fmt.Sprintf("memFree: %.2fG", s.MemSy().MemFree)
 		core.CmdLogs(logs)
 	}
 
@@ -100,7 +100,7 @@ func main(){
 			}
 		}
 	}else{
-		logs := fmt.Sprintf("diskFree: %.2fG\n",s.DiskSy(d.DiskDir).DiskFree)
+		logs := fmt.Sprintf("diskFree: %.2fG",s.DiskSy(d.DiskDir).DiskFree)
 		core.CmdLogs(logs)
 	}
 
@@ -126,7 +126,7 @@ func main(){
 			}
 		}
 	}else{
-		logs := fmt.Sprintf("cpuFree: %d%s\n",s.CpuSy(), x)
+		logs := fmt.Sprintf("cpuFree: %d%s",s.CpuSy(), x)
 		core.CmdLogs(logs)
 	}
 
