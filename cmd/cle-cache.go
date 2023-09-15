@@ -6,7 +6,6 @@ import (
 )
 
 func CleCache(cacheSignal int)error{
-	fmt.Println(cacheSignal)
 	switch  {
 	case cacheSignal == 1:
 		_, err := core.RunCommand(`sync && echo 1 > /proc/sys/vm/drop_caches`)
