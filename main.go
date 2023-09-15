@@ -56,14 +56,14 @@ func main(){
 			}
 			er := core.DingDing(alarmInfo, token)
 			if er == nil {
-				log.Print("mem detonate send dingding success!")
+				core.CmdLogs("mem detonate send dingding success!")
 			}else {
 				log.Print(er.Error())
 			}
 		}else {
 			err := core.DingDing(alarmInfo, *ddToken)
 			if err == nil {
-				log.Print("mem detonate send dingding success!")
+				core.CmdLogs("mem detonate send dingding success!")
 			}else {
 				log.Print(err.Error())
 			}
@@ -73,7 +73,8 @@ func main(){
 			log.Println(err.Error())
 		}
 	}else {
-		log.Printf("memFree: %.2fG\n", s.MemSy().MemFree)
+		logs := fmt.Sprintf("memFree: %.2fG\n", s.MemSy().MemFree)
+		core.CmdLogs(logs)
 	}
 
 	if s.DiskSy(d.DiskDir).DiskUsed > *diskHorizon{
@@ -86,20 +87,21 @@ func main(){
 			}
 			er := core.DingDing(alarmInfo, token)
 			if er == nil {
-				log.Print("Disk detonate send dingding success!")
+				core.CmdLogs("Disk detonate send dingding success!")
 			}else {
 				log.Print(er.Error())
 			}
 		}else {
 			err := core.DingDing(alarmInfo, *ddToken)
 			if err == nil {
-				log.Print("Disk detonate send dingding success!")
+				core.CmdLogs("Disk detonate send dingding success!")
 			}else {
 				log.Print(err.Error())
 			}
 		}
 	}else{
-		log.Printf("diskFree: %.2fG\n",s.DiskSy(d.DiskDir).DiskFree)
+		logs := fmt.Sprintf("diskFree: %.2fG\n",s.DiskSy(d.DiskDir).DiskFree)
+		core.CmdLogs(logs)
 	}
 
 	if s.CpuSy() < *cpu {
@@ -111,20 +113,21 @@ func main(){
 			}
 			er := core.DingDing(alarmInfo, token)
 			if er == nil {
-				log.Print("cpu detonate send dingding success!")
+				core.CmdLogs("cpu detonate send dingding success!")
 			}else {
 				log.Print(er.Error())
 			}
 		}else {
 			err := core.DingDing(alarmInfo, *ddToken)
 			if err == nil {
-				log.Print("cpu detonate send dingding success!")
+				core.CmdLogs("cpu detonate send dingding success!")
 			}else {
 				log.Print(err.Error())
 			}
 		}
 	}else{
-		log.Printf("cpuFree: %d%s\n",s.CpuSy(), x)
+		logs := fmt.Sprintf("cpuFree: %d%s\n",s.CpuSy(), x)
+		core.CmdLogs(logs)
 	}
 
 
@@ -137,19 +140,19 @@ func main(){
 			}
 			er := core.DingDing(alarmInfo, token)
 			if er == nil {
-				log.Print(*processName+" process run num detonate send dingding success!")
+				core.CmdLogs(*processName+" process run num detonate send dingding success!")
 			}else {
 				log.Print(er.Error())
 			}
 		}else {
 			err := core.DingDing(alarmInfo, *ddToken)
 			if err == nil {
-				log.Print(*processName+" process run num detonate send dingding success!")
+				core.CmdLogs(*processName+" process run num detonate send dingding success!")
 			}else {
 				log.Print(err.Error())
 			}
 		}
 	}else {
-		log.Println("GameServer or Gate process run ok.")
+		core.CmdLogs("process run ok.")
 	}
 }
