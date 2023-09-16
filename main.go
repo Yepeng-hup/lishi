@@ -22,7 +22,7 @@ func main(){
 	}
 
 	diskDir := flag.String("diskDataDir", "/", "Specify the storage directory to monitor. The default is / .")
-	diskHorizon := flag.Int("d", 80, "Specify how many utilization of the disk to send an alarm,The default is 80%.")
+	diskHorizon := flag.Int("d", 50, "Specify how many utilization of the disk to send an alarm,The default is 80%.")
 	memHorizon := flag.Float64("m", 2.0, "Specify the number of gigabytes of available memory to send an alarm. The default is 2.0G.")
 	cleCacheNum := flag.Int("c", 3, "Specify the number[1,2,3] clear system cache. The default is 3 .")
 	cpu := flag.Int("cpu", 20, "Specify how much the CPU is lower than to send an alarm, 20% by default.")
@@ -41,14 +41,8 @@ func main(){
 	}
 	s := cmd.System{}
 
-	//i := s.ProcessCheckTime(*proccssFullName).RunTime
-	//u := s.ProcessCheckNum(*processName, *processNum).Response
-	//fmt.Println(u)
-	//fmt.Println(i)
-	//os.Exit(2)
-
 	if s.MemSy().MemFree < *memHorizon{
-		alarmInfo := f1+a.T+f2+fmt.Sprintf("Less memory available: %vG", *memHorizon)+"\n\n"+fmt.Sprintf("Available memory: %.2fG", s.MemSy().MemFree)
+		alarmInfo := f1+a.T+f2+fmt.Sprintf("可用内存少于: %vG", *memHorizon)+"\n\n"+fmt.Sprintf("当前可用内存: %.2fG", s.MemSy().MemFree)
 		if *ddToken == "" {
 			token, err := core.CatFile(*ddTokenFile)
 			if err != nil {
@@ -77,9 +71,8 @@ func main(){
 		core.CmdLogs(logs)
 	}
 
-	if s.DiskSy(d.DiskDir).DiskUsed > *diskHorizon{
-		rel := 100 - s.DiskSy(d.DiskDir).DiskUsed
-		alarmInfo := f1+a.T+f2+fmt.Sprintf("Available disks are less than `%s` : %v%s", d.DiskDir, 100-*diskHorizon, x)+"\n\n"+fmt.Sprintf("Available disks `%s`: %d%s, %.2fG",d.DiskDir, rel, x, s.DiskSy(*diskDir).DiskFree)
+	if int(s.DiskSy(d.DiskDir).DiskFree) < *diskHorizon{
+		alarmInfo := f1+a.T+f2+fmt.Sprintf("`%s` 磁盘空间少于: %v%s", d.DiskDir, *diskHorizon, "G")+"\n\n"+fmt.Sprintf("`%s` 当前可用空间: %.2fG",d.DiskDir, s.DiskSy(*diskDir).DiskFree)
 		if *ddToken == "" {
 			token, err := core.CatFile(*ddTokenFile)
 			if err != nil {
@@ -105,7 +98,7 @@ func main(){
 	}
 
 	if s.CpuSy() < *cpu {
-		alarmInfo := f1+a.T+f2+fmt.Sprintf("Less CPU available: %v%s", 100-*cpu, x)+"\n\n"+fmt.Sprintf("Available CPU: %v%s", s.CpuSy(), x)
+		alarmInfo := f1+a.T+f2+fmt.Sprintf("可用CPU少于: %v%s", *cpu, x)+"\n\n"+fmt.Sprintf("当前可用CPU: %v%s", s.CpuSy(), x)
 		if *ddToken == "" {
 			token, err := core.CatFile(*ddTokenFile)
 			if err != nil {
@@ -113,14 +106,14 @@ func main(){
 			}
 			er := core.DingDing(alarmInfo, token)
 			if er == nil {
-				core.CmdLogs("cpu detonate send dingding success!")
+				core.CmdLogs("cpu利用率爆炸发送钉钉成功！")
 			}else {
 				log.Print(er.Error())
 			}
 		}else {
 			err := core.DingDing(alarmInfo, *ddToken)
 			if err == nil {
-				core.CmdLogs("cpu detonate send dingding success!")
+				core.CmdLogs("cpu利用率爆炸发送钉钉成功！")
 			}else {
 				log.Print(err.Error())
 			}
