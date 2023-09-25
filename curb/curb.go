@@ -12,8 +12,8 @@ import (
 )
 
 const (
-	fileDbtxtPath     = "curb/file-db/db.txt"
-	destfileDbtxtPath = "curb/file-db/new.txt"
+	fileDbtxtPath     = "/tmp/db.txt"
+	destfileDbtxtPath = "/tmp/new.txt"
 )
 
 func WriteTxtDbData(monName string, monValue float64) bool {
