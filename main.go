@@ -19,7 +19,8 @@ const(
 
 func main(){
 	if len(os.Args) < 2 {
-		log.Fatal("Please enter parameters or -h to view the usage of parameters.")
+		fmt.Println("Please enter parameters or -h to view the usage of parameters.")
+		os.Exit(1)
 	}
 
 	diskDir := flag.String("diskDataDir", "/", "Specify the storage directory to monitor. The default is / .")
@@ -33,6 +34,7 @@ func main(){
 	processNum := flag.Int("p", 1, "Count the total number of processes.The default is 1 .")
 	processName := flag.String("n", "nil", "Process name supports wildcard.The default is nil.")
 	//suppression := flag.Int("s", 1, "Is alarm suppression and noise reduction enabled[0,1].The default is 1 .")
+
 	flag.Parse()
 
 	d := &cmd.Diskd{
