@@ -12,10 +12,6 @@ import (
 	"strings"
 )
 
-func Test(s, y int)(int,){
-	x := s+y
-	return x
-}
 
 
 func DingDing(content,token string) error {
