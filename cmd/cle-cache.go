@@ -16,6 +16,8 @@ func CleCache(cacheSignal int)error{
 	case cacheSignal == 3:
 		_, err := core.RunCommand(`sync && echo 3 > /proc/sys/vm/drop_caches`)
 		return err
+	case cacheSignal == 0:
+		return nil
 	default:
 		return fmt.Errorf("Signal type error and to [1, 2, 3].")
 	}

@@ -26,7 +26,7 @@ func main(){
 	diskDir := flag.String("diskDataDir", "/", "Specify the storage directory to monitor. The default is / .")
 	diskHorizon := flag.Int("d", 50, "Specify how many utilization of the disk to send an alarm,The default is 80%.")
 	memHorizon := flag.Float64("m", 2.0, "Specify the number of gigabytes of available memory to send an alarm. The default is 2.0G.")
-	cleCacheNum := flag.Int("c", 3, "Specify the number[1,2,3] clear system cache. The default is 3 .")
+	cleCacheNum := flag.Int("c", 0, "Specify the number[1,2,3] clear system cache.[0] do nothing.The default is 0 .")
 	cpu := flag.Int("cpu", 20, "Specify how much the CPU is lower than to send an alarm, 20% by default.")
 	ddToken := flag.String("token", "", "Specify the Token to send DingDing.")
 	ddTokenFile := flag.String("token_filePath", "", "File path with token written.")
