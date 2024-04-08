@@ -10,21 +10,21 @@ import (
 	"sysmons/curb"
 )
 
-const(
-	f1 = "*** "
-	f2 = " ***\n\n"
-	x = "%"
+const (
+	f1         = "*** "
+	f2         = " ***\n\n"
+	x          = "%"
 	runTimeDay = 30
 )
 
-func main(){
+func main() {
 	if len(os.Args) < 2 {
 		fmt.Println("Please enter parameters or -h to view the usage of parameters.")
 		os.Exit(1)
 	}
 
 	diskDir := flag.String("diskDataDir", "/", "Specify the storage directory to monitor. The default is / .")
-	diskHorizon := flag.Int("d", 50, "Specify how many utilization of the disk to send an alarm,The default is 80%.")
+	diskHorizon := flag.Int("d", 50, "Specify how many utilization of the disk to send an alarm,The default is 50G.")
 	memHorizon := flag.Float64("m", 2.0, "Specify the number of gigabytes of available memory to send an alarm. The default is 2.0G.")
 	cleCacheNum := flag.Int("c", 0, "Specify the number[1,2,3] clear system cache.[0] do nothing.The default is 0 .")
 	cpu := flag.Int("cpu", 20, "Specify how much the CPU is lower than to send an alarm, 20% by default.")
@@ -52,7 +52,7 @@ func main(){
 		}
 		if b != true {
 			curb.WriteTxtDbData("mem", *memHorizon)
-			alarmInfo := f1+a.T+f2+fmt.Sprintf("可用内存少于: %vG", *memHorizon)+"\n\n"+fmt.Sprintf("当前可用内存: %.2fG", s.MemSy().MemFree)
+			alarmInfo := f1 + a.T + f2 + fmt.Sprintf("可用内存少于: %vG", *memHorizon) + "\n\n" + fmt.Sprintf("当前可用内存: %.2fG", s.MemSy().MemFree)
 			if *ddToken == "" {
 				token, err := core.CatFile(*ddTokenFile)
 				if err != nil {
@@ -60,15 +60,15 @@ func main(){
 				}
 				er := core.DingDing(alarmInfo, token)
 				if er == nil {
-					core.CmdLogs("mem detonate send dingding success!")
-				}else {
+					core.CmdLogs("Mem utilization rate high send dingding success!")
+				} else {
 					log.Print(er.Error())
 				}
-			}else {
+			} else {
 				err := core.DingDing(alarmInfo, *ddToken)
 				if err == nil {
-					core.CmdLogs("mem detonate send dingding success!")
-				}else {
+					core.CmdLogs("Mem utilization rate high send dingding success!")
+				} else {
 					log.Print(err.Error())
 				}
 			}
@@ -77,12 +77,12 @@ func main(){
 				log.Println(err.Error())
 			}
 		}
-	}else {
+	} else {
 		b, err := curb.DeleteTxtDbData("mem")
 		if err != nil {
 			core.CmdLogs(err.Error())
 		}
-		if b == true{
+		if b == true {
 			core.CmdLogs("mem delete value success.")
 		}
 		logs := fmt.Sprintf("memFree: %.2fG", s.MemSy().MemFree)
@@ -104,28 +104,28 @@ func main(){
 				}
 				er := core.DingDing(alarmInfo, token)
 				if er == nil {
-					core.CmdLogs("Disk detonate send dingding success!")
+					core.CmdLogs("Disk utilization rate high send dingding success!")
 				} else {
 					log.Print(er.Error())
 				}
 			} else {
 				err := core.DingDing(alarmInfo, *ddToken)
 				if err == nil {
-					core.CmdLogs("Disk detonate send dingding success!")
+					core.CmdLogs("Disk utilization rate high send dingding success!")
 				} else {
 					log.Print(err.Error())
 				}
 			}
 		}
-	}else{
+	} else {
 		b, err := curb.DeleteTxtDbData("disk")
 		if err != nil {
 			core.CmdLogs(err.Error())
 		}
-		if b == true{
+		if b == true {
 			core.CmdLogs("disk delete value success.")
 		}
-		logs := fmt.Sprintf("diskFree: %.2fG",s.DiskSy(d.DiskDir).DiskFree)
+		logs := fmt.Sprintf("diskFree: %.2fG", s.DiskSy(d.DiskDir).DiskFree)
 		core.CmdLogs(logs)
 	}
 
@@ -144,31 +144,30 @@ func main(){
 				}
 				er := core.DingDing(alarmInfo, token)
 				if er == nil {
-					core.CmdLogs("cpu利用率爆炸发送钉钉成功！")
+					core.CmdLogs("Cpu utilization rate high send dingding success！")
 				} else {
 					log.Print(er.Error())
 				}
 			} else {
 				err := core.DingDing(alarmInfo, *ddToken)
 				if err == nil {
-					core.CmdLogs("cpu利用率爆炸发送钉钉成功！")
+					core.CmdLogs("Cpu utilization rate high send dingding success！")
 				} else {
 					log.Print(err.Error())
 				}
 			}
 		}
-	}else{
+	} else {
 		b, err := curb.DeleteTxtDbData("cpu")
 		if err != nil {
 			core.CmdLogs(err.Error())
 		}
-		if b == true{
+		if b == true {
 			core.CmdLogs("cpu delete value success.")
 		}
-		logs := fmt.Sprintf("cpuFree: %d%s",s.CpuSy(), x)
+		logs := fmt.Sprintf("cpuFree: %d%s", s.CpuSy(), x)
 		core.CmdLogs(logs)
 	}
-
 
 	if s.ProcessCheckNum(*processName, *processNum).Response != true {
 		_, err, b := curb.ReadTxtDbData("process")
@@ -185,26 +184,26 @@ func main(){
 				}
 				er := core.DingDing(alarmInfo, token)
 				if er == nil {
-					core.CmdLogs(*processName + " process run num detonate send dingding success!")
+					core.CmdLogs(*processName + " Process run num high send dingding success!")
 				} else {
 					log.Print(er.Error())
 				}
 			} else {
 				err := core.DingDing(alarmInfo, *ddToken)
 				if err == nil {
-					core.CmdLogs(*processName + " process run num detonate send dingding success!")
+					core.CmdLogs(*processName + " Process run num high send dingding success!")
 				} else {
 					log.Print(err.Error())
 				}
 			}
 		}
-	}else {
+	} else {
 		b, err := curb.DeleteTxtDbData("process")
 		if err != nil {
 			core.CmdLogs(err.Error())
 		}
-		if b == true{
-			core.CmdLogs("cpu delete value success.")
+		if b == true {
+			core.CmdLogs("process delete value success.")
 		}
 		core.CmdLogs("process run ok.")
 	}

@@ -66,6 +66,7 @@ func ReadTxtDbData(monName string) (float64, error, bool) {
 
 func DeleteTxtDbData(monName string) (bool, error) {
 	inputFileName := fileDbtxtPath
+	// 临时文件
 	outputFileName := destfileDbtxtPath
 
 	inputFile, err := os.Open(inputFileName)
@@ -96,6 +97,7 @@ func DeleteTxtDbData(monName string) (bool, error) {
 
 	// 检查扫描和写入是否发生错误
 	if err := scanner.Err(); err != nil {
+
 		return false, fmt.Errorf("Error scanning original file,%s", err.Error())
 	}
 	if err := writer.Flush(); err != nil {
@@ -110,11 +112,12 @@ func DeleteTxtDbData(monName string) (bool, error) {
 	if err != nil {
 		return false, fmt.Errorf("write file error,%v\n", err.Error())
 	}
+
 	inputFile.Close()
 	outputFile.Close()
 
 	if err := os.Remove(outputFileName); err != nil {
-		return false, fmt.Errorf("Error deleting original file,%s", err.Error())
+		return false, fmt.Errorf("error deleting original file,%s", err.Error())
 	}
 	return true, nil
 }
