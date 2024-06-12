@@ -29,10 +29,10 @@ func DingDing(content,token string) error {
 
 	jsonData, err := json.Marshal(dataInfo)
 	if err != nil {
-		return fmt.Errorf("json file change fail: ", err)
+		return fmt.Errorf("json file change fail: %s", err.Error())
 	}
 	if _, err := http.Post(dingDingToken, "application/json", bytes.NewBuffer(jsonData));err != nil {
-		return fmt.Errorf("to dingding fail error: ", err)
+		return fmt.Errorf("to dingding fail error: %s", err.Error())
 	}
 	return nil
 }
@@ -41,7 +41,7 @@ func RunCommand(command string) (string, error) {
 	cmd := exec.Command("/bin/bash", "-c", command)
 	output, err := cmd.Output()
 	if err != nil {
-		return "nil", fmt.Errorf("command error: ", err)
+		return "nil", fmt.Errorf("command error: %s", err.Error())
 	}
 	return string(output), nil
 }
