@@ -38,7 +38,7 @@ func main() {
 					use.UseCPU(sys, alarm, c)
 				case "-m":
 					use.UseMemory(sys, alarm, c)
-				case "-diskDataDir":
+				case "-d":
 					use.UseDisk(disk, sys, alarm, c)
 				case "-n":
 					use.UseProcess(sys, alarm, c)
