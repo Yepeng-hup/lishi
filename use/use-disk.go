@@ -26,13 +26,13 @@ func UseDisk(d *cmd.Diskd, s *cmd.System, a *cmd.Alarm, c *cmd.CmdConfig) {
 				if err := core.DingDing(alarmInfo, token); err == nil {
 					core.CmdLogs("Disk utilization rate high send dingding success!")
 				}else {
-					log.Print(err.Error())
+					core.CmdLogs(err.Error())
 				}
 			} else {
 				if err := core.DingDing(alarmInfo, *c.DDToken); err == nil {
 					core.CmdLogs("Disk utilization rate high send dingding success!")
 				}else{
-					log.Print(err.Error())
+					core.CmdLogs(err.Error())
 				}
 			}
 		}

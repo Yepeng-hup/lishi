@@ -24,13 +24,13 @@ func UseProcess(s *cmd.System, a *cmd.Alarm, c *cmd.CmdConfig) {
 				if err := core.DingDing(alarmInfo, token); err == nil {
 					core.CmdLogs(*c.ProcessName + " Process run num high send dingding success!")
 				}else{
-					log.Print(err.Error())
+					core.CmdLogs(err.Error())
 				}
 			} else {
 				if err := core.DingDing(alarmInfo, *c.DDToken); err == nil {
 					core.CmdLogs(*c.ProcessName + " Process run num high send dingding success!")
 				}else{
-					log.Print(err.Error())
+					core.CmdLogs(err.Error())
 				}
 			}
 		}
