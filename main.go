@@ -28,22 +28,23 @@ func main() {
 
 	sys := &cmd.System{}
 
-
 	if strings.Contains(cmdParameterNameList[0], "=") {
+		fmt.Println("Error: There cannot be an equal sign between keys and values.")
 		os.Exit(1)
 	} else {
 		for _, v := range cmdParameterNameList {
 			switch v {
-				case "-cpu":
-					use.UseCPU(sys, alarm, c)
-				case "-m":
-					use.UseMemory(sys, alarm, c)
-				case "-d":
-					use.UseDisk(disk, sys, alarm, c)
-				case "-n":
-					use.UseProcess(sys, alarm, c)
-				default:
-					continue
+			case "-cpu":
+				use.UseCPU(sys, alarm, c)
+			case "-m":
+				use.UseMemory(sys, alarm, c)
+			case "-d":
+				use.UseDisk(disk, sys, alarm, c)
+			case "-n":
+				use.UseProcess(sys, alarm, c)
+			default:
+				fmt.Println("Warning: Not key.")
+				continue
 			}
 		}
 	}

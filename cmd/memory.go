@@ -14,18 +14,18 @@ func (s *System) MemSy() *MemInfo {
 		free := float64(m.Free/1024/1024) / float64(1024)
 		mems := &MemInfo{
 			MemTotal: total,
-			MemUsed: active,
-			MemFree: free,
+			MemUsed:  active,
+			MemFree:  free,
 		}
 		return mems
-	}else {
-		total := float64(m.Total)/1024/1024/1024
-		active := float64(m.Active)/1024/1024/1024
-		free := float64(m.Free)/1024/1024/1024
+	} else {
+		total := float64(m.Total) / 1024 / 1024 / 1024
+		active := float64(m.Active) / 1024 / 1024 / 1024
+		free := float64(m.Free) / 1024 / 1024 / 1024
 		mems := &MemInfo{
 			MemTotal: total,
-			MemUsed: active,
-			MemFree: free,
+			MemUsed:  active,
+			MemFree:  free,
 		}
 		return mems
 	}
